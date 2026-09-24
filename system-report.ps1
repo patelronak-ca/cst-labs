@@ -7,6 +7,9 @@ try {
     "OS: $($os.Caption)"          | Out-File $report -Append
     "CPU: $($cpu.Name)"           | Out-File $report -Append
     ("Free space on C: {0:N1} GB" -f ($disk.FreeSpace / 1GB)) | Out-File $report -Append
+("Total RAM: {0:N1} GB" -f ($os.TotalVisibleMemorySize / 1MB)) | Out-file $report -Append
+$uptime = (Get-Date) - $os.LastBootUpTime
+"Uptime: $($uptime.Days) days, $($uptime.Hours) hours, $($uptime.Minutes) minutes" | Out-File $report -Append
     Write-Host "Report saved to $report" -ForegroundColor Green
 } catch {
     Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
